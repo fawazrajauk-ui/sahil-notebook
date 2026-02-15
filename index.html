@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For Sahil</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="stage">
+    <div class="book" id="book" aria-label="Flipbook">
+      <!-- Page 0 (front cover) -->
+      <section class="page cover front" data-page="0">
+        <div class="page-face front-face">
+          <h1>For Sahil ♡</h1>
+          <p class="sub">A little notebook of us</p>
+          <button class="btn" id="startBtn">Open</button>
+        </div>
+        <div class="page-face back-face">
+          <h2>Hi my love</h2>
+          <p>Turn the page →</p>
+        </div>
+      </section>
+
+      <!-- Page 1 -->
+      <section class="page" data-page="1">
+        <div class="page-face front-face">
+          <h2>Our story</h2>
+          <p>Write your cute timeline here…</p>
+        </div>
+        <div class="page-face back-face">
+          <h2>One of my favourite memories</h2>
+          <p>Write it here…</p>
+        </div>
+      </section>
+
+      <!-- Page 2 -->
+      <section class="page" data-page="2">
+        <div class="page-face front-face">
+          <h2>Reasons I love you</h2>
+          <ul>
+            <li>Your laugh.</li>
+            <li>Your softness.</li>
+            <li>The way you make ordinary days feel safe.</li>
+          </ul>
+        </div>
+        <div class="page-face back-face">
+          <h2>Open when…</h2>
+          <p>…you miss me.</p>
+          <p>…you need a reminder.</p>
+          <p>…you can’t sleep.</p>
+        </div>
+      </section>
+
+      <!-- Page 3 (back cover) -->
+      <section class="page cover back" data-page="3">
+        <div class="page-face front-face">
+          <h2>Future us</h2>
+          <p>Write your future plans / little promises here…</p>
+        </div>
+        <div class="page-face back-face">
+          <h1>The End ♡</h1>
+          <p class="sub">Made with love</p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="controls">
+      <button class="btn ghost" id="prevBtn">← Prev</button>
+      <div class="count" id="count">Page 1</div>
+      <button class="btn" id="nextBtn">Next →</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
