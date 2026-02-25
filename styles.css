@@ -7,34 +7,42 @@
 }
 
 *{ box-sizing:border-box; }
+
 body{
   margin:0;
   font-family: ui-serif, Georgia, "Times New Roman", serif;
   color:var(--ink);
   background: radial-gradient(1200px 600px at 50% 20%, #ffe6ee 0%, #f7f2ff 45%, #f6f6fb 100%);
-  min-height:100vh;
+  height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:24px;
+  overflow:hidden; /* completely prevents page scrolling */
+  padding:16px;
 }
 
+/* Stage wrapper */
 .stage{
   width:min(980px, 100%);
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:18px;
+  height:100vh;
+  justify-content:center;
+  position:relative;
 }
 
+/* BOOK CONTAINER */
 .book{
   position:relative;
   width:min(820px, 100%);
-  aspect-ratio: 16/10;
+  height: 78vh;        /* bigger book now that controls are fixed */
+  max-height: 680px;
   perspective: 1800px;
   transform: translateZ(0);
 }
 
+/* Individual page */
 .page{
   position:absolute;
   inset:0;
@@ -45,157 +53,24 @@ body{
   box-shadow: 0 24px 60px var(--shadow);
 }
 
+/* Page faces */
 .page-face{
   position:absolute;
   inset:0;
-  padding:42px 46px;
+  padding:28px 30px;
   background: var(--paper);
   border:1px solid var(--border);
   border-radius:16px;
   backface-visibility: hidden;
-  overflow:hidden;
-}
-
-.page-face::before{
-  /* faint notebook lines */
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,.04) 1px, transparent 1px);
-  background-size: 100% 34px;
-  opacity:.55;
-  pointer-events:none;
-}
-
-.front-face{ }
-.back-face{
-  transform: rotateY(180deg);
-}
-
-.cover .page-face{
-  background:
-    radial-gradient(700px 260px at 30% 20%, rgba(255,122,162,.18), transparent 60%),
-    radial-gradient(900px 380px at 80% 80%, rgba(160,120,255,.14), transparent 55%),
-    var(--paper);
-}
-
-h1{
-  font-size: clamp(34px, 5vw, 54px);
-  margin:0 0 10px;
-  position:relative;
-}
-h2{
-  font-size: clamp(24px, 3.2vw, 34px);
-  margin:0 0 10px;
-  position:relative;
-}
-p, li{
-  font-size: clamp(16px, 2vw, 20px);
-  line-height:1.55;
-  position:relative;
-}
-
-.sub{ opacity:.75; margin: 0 0 18px; }
-
-.btn{
-  border:none;
-  background: var(--accent);
-  color:white;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow: 0 10px 20px rgba(255,122,162,.22);
-}
-.btn.ghost{
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--border);
-  box-shadow:none;
-}
-
-.controls{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.count{
-  min-width:86px;
-  text-align:center;
-  font-weight:700;
-  opacity:.75;
-}
-
-/* stacking: later pages underneath */
-.page[data-page="0"]{ z-index: 40; }
-.page[data-page="1"]{ z-index: 30; }
-.page[data-page="2"]{ z-index: 20; }
-.page[data-page="3"]{ z-index: 10; }
-
-/* flipped state */
-.page.flipped{
-  transform: rotateY(-180deg);
-}:root{
-  --paper:#fff7f2;
-  --ink:#2b2b2b;
-  --accent:#ff7aa2;
-  --shadow: rgba(0,0,0,.18);
-  --border: rgba(0,0,0,.08);
-}
-
-*{ box-sizing:border-box; }
-body{
-  margin:0;
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-  color:var(--ink);
-  background: radial-gradient(1200px 600px at 50% 20%, #ffe6ee 0%, #f7f2ff 45%, #f6f6fb 100%);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-}
-
-.stage{
-  width:min(980px, 100%);
   display:flex;
   flex-direction:column;
-  align-items:center;
-  gap:18px;
+  gap:12px;
+  min-height:0;
+  overflow:hidden; /* no internal scrolling */
 }
 
-.book{
-  position:relative;
-  width:min(820px, 100%);
-  aspect-ratio: 16/10;
-  perspective: 1800px;
-  transform: translateZ(0);
-}
-
-.page{
-  position:absolute;
-  inset:0;
-  transform-style: preserve-3d;
-  transform-origin: left center;
-  transition: transform 900ms cubic-bezier(.2,.8,.2,1);
-  border-radius:16px;
-  box-shadow: 0 24px 60px var(--shadow);
-}
-
-.page-face{
-  position:absolute;
-  inset:0;
-  padding:42px 46px;
-  background: var(--paper);
-  border:1px solid var(--border);
-  border-radius:16px;
-  backface-visibility: hidden;
-  overflow:hidden;
-}
-
+/* Subtle notebook lines */
 .page-face::before{
-  /* faint notebook lines */
   content:"";
   position:absolute;
   inset:0;
@@ -206,11 +81,12 @@ body{
   pointer-events:none;
 }
 
-.front-face{ }
+.front-face{}
 .back-face{
   transform: rotateY(180deg);
 }
 
+/* Cover special look */
 .cover .page-face{
   background:
     radial-gradient(700px 260px at 30% 20%, rgba(255,122,162,.18), transparent 60%),
@@ -218,24 +94,25 @@ body{
     var(--paper);
 }
 
+/* Headings */
 h1{
   font-size: clamp(34px, 5vw, 54px);
   margin:0 0 10px;
-  position:relative;
 }
+
 h2{
   font-size: clamp(24px, 3.2vw, 34px);
   margin:0 0 10px;
-  position:relative;
 }
+
 p, li{
   font-size: clamp(16px, 2vw, 20px);
   line-height:1.55;
-  position:relative;
 }
 
 .sub{ opacity:.75; margin: 0 0 18px; }
 
+/* Buttons */
 .btn{
   border:none;
   background: var(--accent);
@@ -246,6 +123,7 @@ p, li{
   cursor:pointer;
   box-shadow: 0 10px 20px rgba(255,122,162,.22);
 }
+
 .btn.ghost{
   background: transparent;
   color: var(--ink);
@@ -253,11 +131,22 @@ p, li{
   box-shadow:none;
 }
 
+/* Controls */
 .controls{
   display:flex;
   align-items:center;
   gap:12px;
+  position:fixed;     /* keep visible without affecting layout height */
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  backdrop-filter: blur(8px);
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: rgba(255,247,242,.65);
 }
+
 .count{
   min-width:86px;
   text-align:center;
@@ -265,13 +154,154 @@ p, li{
   opacity:.75;
 }
 
-/* stacking: later pages underneath */
-.page[data-page="0"]{ z-index: 40; }
-.page[data-page="1"]{ z-index: 30; }
-.page[data-page="2"]{ z-index: 20; }
-.page[data-page="3"]{ z-index: 10; }
-
-/* flipped state */
+/* Flipped state */
 .page.flipped{
   transform: rotateY(-180deg);
+}
+
+/* -------- STORY LAYOUT -------- */
+
+.story-title{
+  margin:0 0 6px;
+}
+
+/* Default media (single image/video pages) */
+.media-frame{
+  position: relative;
+  width: 100%;
+  flex: 2;   /* give image more vertical space */
+  height: auto;  /* let it shrink/grow to fit */
+  min-height: 0; /* required for flex children to shrink */
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 24px rgba(0,0,0,.08);
+  background: rgba(255,255,255,.6);
+}
+
+.media-frame img,
+.media-frame video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+/* Caption styling */
+.caption{
+  flex-shrink: 0;  /* prevent caption from stealing space from image */
+  margin-top: 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 10px 20px rgba(0,0,0,.06);
+  position: relative;
+}
+
+.caption .highlight{
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.caption .bold{
+  font-weight: 800;
+}
+
+.caption .soft{
+  opacity: .85;
+}
+
+/* Cute sticker dot */
+.caption::after{
+  content:"";
+  position:absolute;
+  top:-10px;
+  left:18px;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  background: rgba(255,122,162,.35);
+  border: 1px solid rgba(255,122,162,.25);
+}
+
+/* -------- CHAT PAGE SPECIAL STYLE -------- */
+
+.chat-page .media-frame{
+  width: 100%;
+  flex: 4;                 /* make chat image area taller */
+  max-height: none;
+  overflow-y: auto;        /* ENABLE scrolling for chat only */
+  overflow-x: hidden;
+  padding: 4px;             /* reduce padding so images appear larger */
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.6);
+}
+
+.chat-page .media-frame img{
+  width: 100%;
+  height: auto;            /* fix invalid auto% */
+  margin-bottom: 8px;
+  border-radius: 6px;
+  display:block;
+}
+
+
+/* -------- TALL PHOTO PAGE (Page 2) -------- */
+
+.tall-photo-page .tall-layout{
+  display:flex;
+  gap:12px;
+  flex:1;
+  min-height:0;
+}
+
+.tall-photo-page .side-text{
+  flex:1;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.55);
+  border-radius:14px;
+  padding:12px;
+  overflow:hidden;
+}
+
+.tall-photo-page .side-text p{
+  font-size:clamp(13px, 1.6vw, 16px);
+  line-height:1.45;
+  margin:0 0 10px;
+}
+
+.tall-photo-page .side-text p:last-child{
+  margin-bottom:0;
+}
+
+/* Center image shows FULL long photo (no cropping) */
+.tall-photo-page .media-frame.tall-image{
+  flex:1.4;
+  padding:8px;
+  background:rgba(255,255,255,.45);
+}
+
+.tall-photo-page .media-frame.tall-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:rgba(0,0,0,.06);
+  border-radius:10px;
+}
+
+/* Scrollable middle photos for multi-image tall pages */
+.scroll-photos{
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scroll-photos img{
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
 }
